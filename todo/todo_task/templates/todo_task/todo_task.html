@@ -1,0 +1,42 @@
+{% extends 'todo_task/base.html' %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/todo.css' %}">
+    <script src="{% static 'js/todo.js' %}"></script>
+</head>
+{% block title %}todo{% endblock %} 
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'todo_task/css/todo.css' %}">
+    <script src="{% static 'todo_task/js/todo.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 mt-5">
+                <form class="form-inline justify-content-center mx-3" id="createTodoForm" method="post" data-url="{% url 'todo' %}">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mx-3">
+                            {{ field }}
+                            {{ field.label }}
+                        </div>
+                    {% endfor %}
+                    <button type="button" class="btn btn-outline-success" id="createButton">Save</button>
+                </form>
+            </div>
+            <div class="col-8 mt-5 justify-content-center" id="todoList">
+                {% for todo in todos %}
+                    <div class="card mb-1" data-id="{{ todo.id }}">
+                        <div class="card-body" style="background-color:{{ todo.background_color }};">
+                            <font color="{{ todo.text_color }}">{{ todo.message }}</font>
+                            <button type="button" class="close float-right" data-id="{{ todo.id }}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
