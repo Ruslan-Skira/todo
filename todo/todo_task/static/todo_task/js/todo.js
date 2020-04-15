@@ -1,5 +1,3 @@
-console.log('hwe')
-
 $(document).ready(function() {
     var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
     $("#createButton").click(function(){
@@ -28,11 +26,8 @@ $(document).ready(function() {
     
     $("#todoList").on('click', 'button.close', function(event) { 
         var dataId = $(this).data('id');
-        // $.post('/todo/' + dataId + '/delete/', 
-            
-        // )
         $.ajax({
-            url: '/todo/' + dataId + '/delete/',
+            url: dataId + '/delete/',
             data: {
                 csrfmiddlewaretoken: csrfToken,
                 id: dataId
